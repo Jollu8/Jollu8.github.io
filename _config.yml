@@ -5,7 +5,7 @@ header-img: img/home-bg.jpg
 email: huxpro@gmail.com
 description: "Для Дескрип что то надо написать "
 keyword: "С++ и блог"
-url: "https://jollusblog-ru.github.io" # your host, for absolute URL
+url: "https://" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
