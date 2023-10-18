@@ -67,10 +67,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (~> 4.0)
+  jekyll
   jekyll-paginate
   rake
-  webrick (~> 1.7)
+  webrick
 
 BUNDLED WITH
    1.17.2
