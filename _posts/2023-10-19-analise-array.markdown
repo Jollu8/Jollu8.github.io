@@ -2,7 +2,7 @@
 layout: post
 title: "Анализ исходного кода C++ STL tr1 и массив std"
 subtitle: "Массивы"
-date: 2023-10-20 12:00:00
+date: 2023-10-19 12:00:00
 author: "Джолу"
 hidden: true
 header-img: "img/home-bg.jpg"
