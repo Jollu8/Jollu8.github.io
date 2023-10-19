@@ -6,6 +6,7 @@ date: 2023-10-19 12:00:00
 author: "Jollu"
 hidden: true
 header-img: "img/home-bg.jpg"
+catalog: true
 tags:
   - C++
   - Stl

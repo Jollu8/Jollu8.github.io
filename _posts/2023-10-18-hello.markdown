@@ -4,7 +4,8 @@ title: "Hello 2023"
 subtitle: " \"Привет и привет первый пост\""
 date: 2023-10-18 14:00:00
 author: "Jollu"
-he[2023-10-19-analise-array.markdown](2023-10-19-analise-array.markdown)ader-img: "img/post-bg-2023.jpg"
+hidden: true
+header-img: "img/post-bg-2023.jpg"
 catalog: true
 tags:
   - Life
