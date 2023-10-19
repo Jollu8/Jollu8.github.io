@@ -1,6 +1,7 @@
 ---
+
 layout: page
-description: "「История программиста в смешной и занимательной форме」"
+description: "История программиста в смешной и занимательной форме"
 ---
 
 {% for post in paginator.posts %}
@@ -16,9 +17,9 @@ description: "「История программиста в смешной и з
         {% endif %}
         <div class="post-content-preview">
             {% if post.lang == 'en' %}
-                {{ post.content | strip_html | truncate:300 }}
+            {{ post.content | strip_html | truncate:300 }}
             {% else %}
-                {{ post.content | strip_html | truncate:200 }}
+            {{ post.content | strip_html | truncate:200 }}
             {% endif %}
         </div>
     </a>
