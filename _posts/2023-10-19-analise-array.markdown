@@ -4,7 +4,7 @@ title: "Анализ исходного кода C++ STL tr1 и массив std
 subtitle: "\"Массивы\""
 date: 2023-10-19 12:00:00
 author: "Jollu"
-hidden: true
+hidden: false
 header-img: "img/home-bg.jpg"
 catalog: true
 tags:

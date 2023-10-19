@@ -4,7 +4,7 @@ title: "Hello 2023"
 subtitle: " \"Привет и привет первый пост\""
 date: 2023-10-18 14:00:00
 author: "Jollu"
-hidden: true
+hidden: false
 header-img: "img/post-bg-2023.jpg"
 catalog: true
 tags:
