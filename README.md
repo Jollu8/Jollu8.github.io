@@ -1,13 +1,19 @@
+Добро пожаловать в мой Статистический блог!
+---
+В этом блоге я буду писать очень интересные и интеллектуальные новости о мире информационных технологий. Здесь вы
+найдете актуальные сведения о последних событиях из сферы IT, включая разработку на языке программирования C++ и его
+экосистему. Откройте для себя увлекательный мир информационных технологий вместе со мной!
 
-Translation
-- [🇨🇳  中文文档（有点过时）](https://github.com/Huxpro/huxpro.github.io/blob/master/_doc/README.zh.md)
 
+Благодарности
+-----------
+
+1. Этот шаблон является ответвлением от [Hux , спасибо автору](https://github.com/Huxpro/huxpro.github.io).
+2. Спасибо Jekyll, Github Pages и Bootstrap!
 
 License
 -------
 
-Apache License 2.0.
-Copyright (c) 2015-present Huxpro
+1. Apache License 2.0.
+2. [Clean Blog Jekyll Theme (MIT License)](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/)
 
-Hux Blog is derived from [Clean Blog Jekyll Theme (MIT License)](https://github.com/BlackrockDigital/startbootstrap-clean-blog-jekyll/)
-Copyright (c) 2013-2016 Blackrock Digital LLC.

@@ -1,11 +1,11 @@
 # Site settings
-title: Jollu Blog
+title: Новости от Джолу
 SEOTitle: Джолу | Jollu Blog
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
-description: "Для Дескрип что то надо написать "
-keyword: "С++ и блог"
-url: "https://" # your host, for absolute URL
+email: zholu8@gmail.com
+description: "Блог о C++ и жизни"
+keyword: "История программиста в смешной и занимательной форме"
+url: "https://jollusblog-ru.me" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
 # Publish posts or collection documents with a future date.
@@ -15,8 +15,7 @@ future: true
 RSS: false
 github_username: Jollu8
 linkedin_username: lordjollu
-#facebook_username:  huxpro
-#linkedin_username:  firstname-lastname-idxxxx
+
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
