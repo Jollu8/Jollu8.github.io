@@ -85,7 +85,7 @@ value_type _M_instance[_Nm ? _Nm : 1];
 std::array<int ,10> a;
 ```
 
-std中的array包含了
+Массив в std содержит:
 
 ![std_array.png](https://raw.githubusercontent.com/Light-City/cloudimg/master/std_array.png)
 
