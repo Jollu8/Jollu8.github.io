@@ -3,7 +3,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="{{ site.description }}">
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
     <meta name="keywords" content="{{ site.keyword }}">
     <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
 
@@ -31,8 +31,47 @@
     <meta property="og:image" content="{{ site.url }}{{ site.sidebar-avatar }}">
     <meta property="og:url" content="{{ site.url }}{{ page.url }}">
     <meta property="og:site_name" content="{{ site.SEOTitle }}">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+        content="{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}">
+    <meta name="twitter:description"
+        content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.sidebar-avatar }}">
 
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
+    <script>
+        (function () {
+            var lang = new URLSearchParams(window.location.search).get('lang');
+            var isEnglish = lang === 'en';
+            var englishBrand = 'Jollu Engineering Notes';
+            var russianBrand = '{{ site.title }}';
+            var englishHome = 'C++ developer in 5G and high-performance systems';
+            var russianHome = 'C++ разработчик в области 5G и высокопроизводительных систем';
+            var englishAbout = 'Professional profile';
+            var russianAbout = 'Профессиональный профиль';
+
+            var brandText = isEnglish ? englishBrand : russianBrand;
+            document.title = document.title.replace('{{ site.SEOTitle }}', brandText);
+            document.querySelectorAll('meta[property="og:site_name"]').forEach(function (meta) {
+                meta.setAttribute('content', brandText);
+            });
+            document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach(function (meta) {
+                meta.setAttribute('content', meta.getAttribute('content').replace('{{ site.SEOTitle }}', brandText));
+            });
+
+            var metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) {
+                var descText = metaDesc.getAttribute('content');
+                if (descText && descText.indexOf('C++ разработчик') !== -1) {
+                    metaDesc.setAttribute('content', isEnglish ? englishHome : russianHome);
+                }
+                if (descText && descText.indexOf('Профессиональный профиль') !== -1) {
+                    metaDesc.setAttribute('content', isEnglish ? englishAbout : russianAbout);
+                }
+            }
+        })();
+    </script>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="{{ site.baseurl }}/pwa/manifest.json">
@@ -47,7 +86,7 @@
     <link rel="stylesheet" href="{{ " /css/bootstrap.min.css" | prepend: site.baseurl }}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ " /css/hux-blog.min.css" | prepend: site.baseurl }}">
+    <link rel="stylesheet" href="{{ " /css/hux-blog.css" | prepend: site.baseurl }}">
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->

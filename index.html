@@ -1,15 +1,97 @@
 ---
 
 layout: page
-description: "История программиста в смешной и занимательной форме"
+description: "C++ разработчик в области 5G и высокопроизводительных систем"
+multilingual: true
 ---
 
+<div class="zh">
+<section class="home-profile" aria-labelledby="home-profile-title">
+    <div class="home-profile__copy">
+        <p class="home-profile__eyebrow">C++ / 5G L2 / systems</p>
+        <h2 id="home-profile-title">Разрабатываю системы, которым можно доверять</h2>
+        <p class="home-profile__summary">
+            Я Джолу, C++ разработчик. Сейчас работаю над программным обеспечением для 5G в Yadro,
+            а раньше создавал мультимедийный клиент TrueConf.
+        </p>
+        <div class="home-profile__actions">
+            <a class="btn btn-default" href="{{ site.baseurl }}/about/">Обо мне</a>
+            <a class="home-profile__link" href="https://github.com/{{ site.github_username }}">GitHub <span aria-hidden="true">&#8599;</span></a>
+        </div>
+    </div>
+    <div class="home-profile__facts" aria-label="Профессиональный профиль">
+        <div>
+            <strong>C++</strong>
+            <span>C / Python</span>
+            <small>основные языки</small>
+        </div>
+        <div>
+            <strong>Build</strong>
+            <span>CMake / Bazel</span>
+            <small>сборка проектов</small>
+        </div>
+        <div>
+            <strong>L2</strong>
+            <span>LTE / NR</span>
+            <small>сетевые протоколы</small>
+        </div>
+    </div>
+</section>
+
+<div class="home-notes-heading">
+    <h2>Последние заметки</h2>
+    <a href="{{ site.baseurl }}/archive/">Все записи <span aria-hidden="true">&#8594;</span></a>
+</div>
+</div>
+
+<div class="en">
+<section class="home-profile" aria-labelledby="home-profile-title-en">
+    <div class="home-profile__copy">
+        <p class="home-profile__eyebrow">C++ / 5G L2 / systems</p>
+        <h2 id="home-profile-title-en">Building systems you can trust</h2>
+        <p class="home-profile__summary">
+            I am Jolu, a C++ developer. I currently work on 5G software at Yadro,
+            and previously developed a multimedia client at TrueConf.
+        </p>
+        <div class="home-profile__actions">
+            <a class="btn btn-default" href="{{ site.baseurl }}/about/?lang=en">About me</a>
+            <a class="home-profile__link" href="https://github.com/{{ site.github_username }}">GitHub <span aria-hidden="true">&#8599;</span></a>
+        </div>
+    </div>
+    <div class="home-profile__facts" aria-label="Professional profile">
+        <div>
+            <strong>C++</strong>
+            <span>C / Python</span>
+            <small>core languages</small>
+        </div>
+        <div>
+            <strong>Build</strong>
+            <span>CMake / Bazel</span>
+            <small>project tooling</small>
+        </div>
+        <div>
+            <strong>L2</strong>
+            <span>LTE / NR</span>
+            <small>network protocols</small>
+        </div>
+    </div>
+</section>
+
+<div class="home-notes-heading">
+    <h2>Latest notes</h2>
+    <a href="{{ site.baseurl }}/archive/">All posts <span aria-hidden="true">&#8594;</span></a>
+</div>
+</div>
+
+<div class="home-notes-grid">
 {% for post in paginator.posts %}
-<div class="post-preview">
+<article class="note-card">
     <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">
-            {{ post.title }}
-        </h2>
+        <div class="note-card__topline">
+            <span class="note-card__number">{{ forloop.index | prepend: '0' }}</span>
+            <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+        </div>
+        <h2 class="post-title">{{ post.title }}</h2>
         {% if post.subtitle %}
         <h3 class="post-subtitle">
             {{ post.subtitle }}
@@ -22,25 +104,34 @@ description: "История программиста в смешной и за�
             {{ post.content | strip_html | truncate:200 }}
             {% endif %}
         </div>
+        {% if post.tags %}
+        <div class="post-tags" aria-label="Теги записи">
+            {% for tag in post.tags limit:3 %}
+            <span>{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <span class="note-card__read"><span class="zh">Читать заметку</span><span class="en">Read note</span> <span aria-hidden="true">&#8594;</span></span>
     </a>
-    <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
-    </p>
-</div>
-<hr>
+</article>
 {% endfor %}
+</div>
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
 <ul class="pager">
     {% if paginator.previous_page %}
     <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Новый Пост</a>
+        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+            &larr; <span class="zh">Новые записи</span><span class="en">Newer posts</span>
+        </a>
     </li>
     {% endif %}
     {% if paginator.next_page %}
     <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Старый Пост &rarr;</a>
+        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">
+            <span class="zh">Старые записи</span><span class="en">Older posts</span> &rarr;
+        </a>
     </li>
     {% endif %}
 </ul>

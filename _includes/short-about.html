@@ -1,6 +1,7 @@
+{% unless page.url == '/about/' or page.url == '/about/index.html' %}
 <section class="visible-md visible-lg">
   <hr>
-  <h5><a href="{{'/about/' | prepend: site.baseurl }}">Обо мне</a></h5>
+  <h5><a id="short-about-title" href="{{'/about/' | prepend: site.baseurl }}">Обо мне</a></h5>
   <div class="short-about">
     {% if site.sidebar-avatar %}
     <img src="{{site.sidebar-avatar}}" />
@@ -12,3 +13,4 @@
     {% include sns-links.html %}
   </div>
 </section>
+{% endunless %}

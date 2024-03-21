@@ -83,7 +83,7 @@
 {% endif %}
 
 
-{% if page.title == 'Archive' %}
+{% if page.url == '/archive/' or page.title == 'Archive' or page.title == 'Архив' %}
 <!-- jquery.tagcloud.js -->
 <script>
     async('{{ "/js/jquery.tagcloud.js" | prepend: site.baseurl }}', function () {
@@ -94,7 +94,7 @@
         $('#tag_cloud a').tagcloud();
     })
 </script>
-<script src='{{ "/js/archive.js " | prepend: site.baseurl }}'></script>
+<script src='{{ "/js/archive.js" | prepend: site.baseurl }}'></script>
 {% endif %}
 
 <!--fastClick.js -->
@@ -212,12 +212,15 @@
 <!-- Handle Language Change -->
 <script type="text/javascript">
     // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
+    var $zh = document.querySelectorAll(".zh");
+    var $en = document.querySelectorAll(".en");
+    var $langButtons = document.querySelectorAll(".lang-btn");
 
     // Changes at v1.8.1: include lang flag as a url query. This interop well with catalog hash anchors.
-    function getLang() { return new URLSearchParams(document.location.search).get("lang") }
+    function getLang() {
+        var lang = new URLSearchParams(document.location.search).get("lang");
+        return (lang === "en") ? "en" : "zh";
+    }
 
     function setLang(newLang) {
         var params = new URLSearchParams(document.location.search)
@@ -225,37 +228,120 @@
         document.location.search = params.toString()  // refresh.
     }
 
+    function syncLangButtons(lang) {
+        $langButtons.forEach(function (button) {
+            var isActive = (button.dataset.lang === lang);
+            button.classList.toggle("active", isActive);
+            button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+    }
+
+    function applyLangToInternalLinks(lang) {
+        var links = document.querySelectorAll('a[href^="/"]');
+        links.forEach(function (link) {
+            var href = link.getAttribute('href');
+            if (!href || /^https?:\/\//.test(href) || href.indexOf('mailto:') === 0 || href.indexOf('#') === 0) {
+                return;
+            }
+
+            var url = new URL(href, window.location.href);
+            var params = new URLSearchParams(url.search);
+            params.set('lang', lang);
+            url.search = params.toString();
+            link.setAttribute('href', url.pathname + (url.search || ''));
+        });
+
+        var brand = document.getElementById('site-brand');
+        if (brand) {
+            var brandHref = new URL(brand.getAttribute('href') || '/', window.location.href);
+            var brandParams = new URLSearchParams(brandHref.search);
+            brandParams.set('lang', lang);
+            brandHref.search = brandParams.toString();
+            brand.setAttribute('href', brandHref.pathname + (brandHref.search || ''));
+        }
+    }
+
+    function applyUiTranslations(lang) {
+        var isEnglish = lang === "en";
+
+        var homeText = isEnglish ? "Home" : "Главная";
+        var aboutText = isEnglish ? "About me" : "Обо мне";
+        var archiveText = isEnglish ? "Notes" : "Заметки";
+        var featuredText = isEnglish ? "FEATURED TAGS" : "ИЗБРАННЫЕ ТЭГИ";
+        var russianTitle = 'Джолу';
+        var englishTitle = 'Jollu';
+        var russianSubtitle = 'C++ разработчик в области 5G и высокопроизводительных систем';
+        var englishSubtitle = 'C++ developer in 5G and high-performance systems';
+
+        var brand = document.getElementById('site-brand');
+        if (brand) {
+            brand.textContent = isEnglish ? 'Jollu' : 'Джолу';
+        }
+
+        var navHome = document.getElementById('nav-home');
+        var navAbout = document.getElementById('nav-about');
+        var navArchive = document.getElementById('nav-archive');
+        var shortAboutTitle = document.getElementById('short-about-title');
+        var featuredTagsTitle = document.getElementById('featured-tags-title');
+        var siteHeadingTitle = document.querySelector('.site-heading h1');
+        var siteHeadingSubtitle = document.querySelector('.site-heading .subheading');
+
+        if (navHome) navHome.textContent = homeText;
+        if (navAbout) navAbout.textContent = aboutText;
+        if (navArchive) navArchive.textContent = archiveText;
+        if (shortAboutTitle) shortAboutTitle.textContent = aboutText;
+        if (featuredTagsTitle) featuredTagsTitle.textContent = featuredText;
+
+        if (siteHeadingTitle) {
+            siteHeadingTitle.textContent = isEnglish ? (siteHeadingTitle.dataset.en || englishTitle) : (siteHeadingTitle.dataset.ru || russianTitle);
+        }
+
+        if (siteHeadingSubtitle) {
+            siteHeadingSubtitle.textContent = isEnglish ? (siteHeadingSubtitle.dataset.en || englishSubtitle) : (siteHeadingSubtitle.dataset.ru || russianSubtitle);
+        }
+
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+            var rawDesc = metaDesc.getAttribute('content') || '';
+            if (rawDesc.indexOf('C++ разработчик') !== -1 || rawDesc.indexOf('C++ developer') !== -1) {
+                metaDesc.setAttribute('content', isEnglish ? englishSubtitle : russianSubtitle);
+            }
+        }
+    }
+
+    function toggleLanguageBlocks(lang) {
+        $zh.forEach(function (node) {
+            node.style.display = (lang === "en") ? "none" : "block";
+            node.classList.toggle("active", lang !== "en");
+        });
+
+        $en.forEach(function (node) {
+            node.style.display = (lang === "en") ? "block" : "none";
+            node.classList.toggle("active", lang === "en");
+        });
+    }
+
     // handle render
     function _render() {
-        var lang = getLang()
-        // en
-        if (lang == "en") {
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $en.classList.add("active");
-            $zh.style.display = "none";
-            $zh.classList.remove("active");
-            // default to zh-cn
-        } else {
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $zh.classList.add("active");
-            $en.style.display = "none";
-            $en.classList.remove("active");
-        }
+        var lang = getLang();
+        syncLangButtons(lang);
+        applyUiTranslations(lang);
+        applyLangToInternalLinks(lang);
+        toggleLanguageBlocks(lang);
         // interop with catalog 
         generateCatalog(".catalog-body");
     }
 
-    // handle select change
-    function onLanChange(index) {
-        if (index == 0) {
-            lang = "zh"
-        } else {
-            lang = "en"
-        }
-        setLang(lang)
+    // handle language change from navbar buttons
+    function onLanChange(nextLang) {
+        setLang(nextLang);
     }
+
+    $langButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            onLanChange(this.dataset.lang);
+        });
+    });
 
     // init
     _render();

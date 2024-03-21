@@ -1,10 +1,10 @@
 # Site settings
-title: О C++ и жизни
-SEOTitle: Джолу | and Blog
+title: Джолу
+SEOTitle: Джолу
 header-img: img/home-bg.jpg
 email: zholu8@gmail.com
-description: ""
-keyword: "История программиста в смешной и занимательной форме"
+description: "C++ разработчик в области 5G и высокопроизводительных систем"
+keyword: "C++, 5G, backend, WebRTC, системное программирование"
 url: "" # your host, for absolute URL
 baseurl: "" # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -55,7 +55,7 @@ kramdown:
       start_line: 1
 
 # Disqus settings
-disqus_username: Jollu
+disqus_username: ""
 
 # Netease settings
 netease_comment: false

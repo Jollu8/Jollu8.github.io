@@ -7,13 +7,13 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle">
+                <button type="button" class="navbar-toggle" aria-label="Открыть меню" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
+                <a class="navbar-brand" id="site-brand" href="{{ site.baseurl }}/">{{ site.title }}</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,18 +21,29 @@
                 <div class="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="{{ site.baseurl }}/">Дом</a>
+                            <a id="nav-home" href="{{ site.baseurl }}/">Главная</a>
                         </li>
-                        {% for page in site.pages %}
-                        {% if page.title and page.hide-in-nav != true %}
                         <li>
-                            <a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+                            <a id="nav-about" href="{{ site.baseurl }}/about/">Обо мне</a>
+                        </li>
+                        <li>
+                            <a id="nav-archive" href="{{ site.baseurl }}/archive/">Заметки</a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/{{ site.github_username }}" rel="noopener">GitHub</a>
+                        </li>
+                        {% if page.multilingual %}
+                        <li class="nav-lang-switch-wrap">
+                            <div class="nav-lang-switch" aria-label="Язык интерфейса">
+                                <button type="button" class="lang-btn active" data-lang="zh" aria-label="Русский язык">RU</button>
+                                <button type="button" class="lang-btn" data-lang="en" aria-label="English language">EN</button>
+                            </div>
                         </li>
                         {% endif %}
-                        {% endfor %}
                         <li class="search-icon">
                             <a href="javascript:void(0)">
-                                <i class="fa fa-search"></i>
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                                <span class="sr-only">Поиск</span>
                             </a>
                         </li>
                     </ul>
@@ -73,8 +84,10 @@
         $toggle.addEventListener('click', function (e) {
             if ($navbar.className.indexOf('in') > 0) {
                 __HuxNav__.close()
+                $toggle.setAttribute('aria-expanded', 'false')
             } else {
                 __HuxNav__.open()
+                $toggle.setAttribute('aria-expanded', 'true')
             }
         })
 
@@ -96,3 +109,11 @@
         })
     </script>
 </nav>
+
+<script>
+    (function () {
+        var isEnglish = new URLSearchParams(window.location.search).get('lang') === 'en';
+        var brand = document.getElementById('site-brand');
+        if (brand && isEnglish) brand.textContent = 'Jollu Engineering Notes';
+    })();
+</script>
